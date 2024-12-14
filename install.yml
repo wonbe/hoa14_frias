@@ -1,0 +1,19 @@
+---
+
+- hosts: all
+  become: true
+  pre_tasks:
+
+  - name: Updating Ubuntu
+    tags: always
+    apt:
+      update_cache: yes
+      upgrade: dist
+    when: ansible_distribution == "Ubuntu"
+
+- hosts: all
+  become: true
+  roles:
+    - role: Glance
+    - role: Keystone
+    - role: Nova
